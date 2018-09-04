@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>8d470bb4-7fb7-4b4d-869b-0c5a6226a1b4</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>Deployment</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>1.0</TargetFrameworkVersion>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <Content Include="azuredeploy.json" />
+    <Content Include="azuredeploy.parameters.json" />
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <Content Include="Parameters\03CreateVMDiagStorage.parameters.json" />
+    <Content Include="Parameters\01CreateNetworkandSubnet.parameters.json" />
+    <Content Include="Others\Parameters\CreateVM.parameters.json" />
+    <Content Include="Others\Parameters\CreateVMStorage.parameters.json" />
+    <Content Include="Templates\01CreateNetwork.json" />
+    <Content Include="Templates\03CreateStorage.json" />
+    <Content Include="Others\Templates\CreateVM-PIP.json" />
+    <None Include="Others\Parameters\PortalVMScript.parameters.json" />
+    <Content Include="Parameters\No.parameters.json" />
+    <None Include="Others\Templates\PortalVMScript.json" />
+    <Content Include="Templates\FSServer2.json" />
+    <Content Include="Templates\FSServer.json" />
+    <Content Include="Templates\WEBServer.json" />
+    <Content Include="Parameters\02.0CreateNSG.parameters.json" />
+    <Content Include="Parameters\02.1network.parameters.json" />
+    <None Include="Parameters\DBServer.parameters.json" />
+    <None Include="Temp.json" />
+    <Content Include="Templates\DBServer.json" />
+    <Content Include="Templates\02.0CreateNSG.json" />
+    <Content Include="Templates\02.1network.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generic\Parameters\" />
+    <Folder Include="Generic\Templates\" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>

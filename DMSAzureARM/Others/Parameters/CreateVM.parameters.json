@@ -1,0 +1,53 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachineName": {
+      "value": "CTSNUSDMSPWEB01"
+    },
+    "virtualMachineSize": {
+      "value": "Standard_D1_v2"
+    },
+    "storageAccountName": {
+      "value": "testctsanusdmsprdstg01"
+    },
+    "virtualNetworkName": {
+      "value": "CTSANUSDMSVN01"
+    },
+    "adminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/skpTestKeyvault-RG/providers/Microsoft.KeyVault/vaults/skpTestKeyvault"
+        },
+        "secretName": "testvmkey1"
+      }
+    },
+    "diagnosticsStorageAccountName": {
+      "value": "tctsanusdmsprdstg01diag"
+    },
+    "subnetName": {
+      "value": "CTSANUSDMSPRDWEBSN"
+    },
+    "privateIpAddress": {
+      "value": "10.1.0.4"
+    },
+    "dnsNameForPublicIP": {
+      "value": "ctsanusdmsprdwebdns01"
+    },
+    "publicIPAddressType": {
+      "value": "Dynamic"
+    },
+    "privateIPAddressType": {
+      "value": "Static"
+    },
+    "OSPublisher": {
+      "value": "MicrosoftWindowsServer"
+    },
+    "OSOffer": {
+      "value": "WindowsServer"
+    },
+    "OSSKU": {
+      "value": "2012-R2-Datacenter"
+    }
+  }
+}

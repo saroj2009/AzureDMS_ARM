@@ -1,0 +1,115 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "variables": {
+    "networktemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateNetwork.json",
+    "networktemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateNetworkandSubnet.parameters.json",
+    "storagetemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateStorage.json",
+    "storagetemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateVMDiagStorage.parameters.json",
+    "webservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/WEBServer.json",
+    "fileservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/FSServer.json",
+    "fileserver2templateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/FSServer2.json",
+    "dbservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/DBServer.json",
+    "NotemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/No.parameters.json"
+  },
+  "resources": [
+    {
+      "name": "CreateNIC",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('networktemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('networktemplateUrlParameter')]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    },
+    {
+      "name": "CreateStorage",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('storagetemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('storagetemplateUrlParameter')]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    }//,
+    //{
+    //  "name": "CreateWebServer",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('webservertemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('NotemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  }
+    //},
+    //{
+    //  "name": "CreateFileServer",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('fileservertemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('NotemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  }
+    //},
+    //{
+    //  "name": "CreateFileServer2",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('fileserver2templateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('NotemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  }
+    //},
+    //{
+    //  "name": "CreateDBServer",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('dbservertemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('NotemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  }
+    //}
+  ],
+  "outputs": {}
+}

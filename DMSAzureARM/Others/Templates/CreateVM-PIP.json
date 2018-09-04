@@ -1,0 +1,173 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachineName": {
+      "type": "string"
+    },
+    "virtualMachineSize": {
+      "type": "string"
+    },
+    "storageAccountName": {
+      "type": "string"
+    },
+    "virtualNetworkName": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    },
+    "diagnosticsStorageAccountName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
+    },
+    "privateIpAddress": {
+      "type": "string"
+    },
+    "dnsNameForPublicIP": {
+      "type": "string"
+    },
+    "publicIPAddressType": {
+      "type": "string",
+      "allowedValues": [
+        "Static",
+        "Dynamic"
+      ]
+    },
+    "privateIPAddressType": {
+      "type": "string",
+      "allowedValues": [
+        "Static",
+        "Dynamic"
+      ]
+    },
+    "OSPublisher": {
+      "type": "string"
+    },
+    "OSOffer": {
+      "type": "string"
+    },
+    "OSSKU": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "VnetName": "parameters('virtualNetworkName')",
+    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+    "publicIPAddressName": "[concat(parameters('virtualMachineName'), '-pip')]",
+    "nicSuffix": "-nic",
+    "vhdStorageContainerName": "vhds",
+    "networkInterfaceName": "[concat(parameters('virtualMachineName'), variables('nicSuffix'))]",
+    "adminUsername": "ctsadmin",
+    "storageAccountName": "testctsanusdmsprdstg01",
+    "storageAccountResourceGroup": "SKPtestRG",
+    "serverStorageAccountContainerName": "vhds",
+    "serverOSDiskName": "[concat(parameters('virtualMachineName'), '-osDisk')]"
+  },
+  "resources": [
+    {
+      "name": "[parameters('virtualMachineName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
+      ],
+      "properties": {
+        "osProfile": {
+          "computerName": "[parameters('virtualMachineName')]",
+          "adminUsername": "[variables('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]",
+          "windowsConfiguration": {
+            "provisionVmAgent": "true"
+          }
+        },
+        "hardwareProfile": {
+          "vmSize": "[parameters('virtualMachineSize')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('OSPublisher')]",
+            "offer": "[parameters('OSOffer')]",
+            "sku": "[parameters('OSSKU')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachineName')]",
+            "vhd": {
+              //"uri": "[concat(reference(resourceId(variables('storageAccountResourceGroup'), 'Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob, variables('serverStorageAccountContainerName'), '/', variables('serverOSDiskName'), '.vhd')]",
+              "uri": "[concat(concat(concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/'), 'vhds/'), parameters('virtualMachineName'), '20180709172445.vhd')]"
+              //"uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/', variables('vhdStorageContainerName'), '/', parameters('virtualMachineName'),'-osdisk', '.vhd')]"
+            },
+                "caching": "ReadWrite",
+                "createOption": "FromImage"
+
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('http://', parameters('diagnosticsStorageAccountName'), '.blob.core.windows.net')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "[variables('networkInterfaceName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2016-09-01",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              },
+              "privateIPAllocationMethod": "[parameters('privateIPAddressType')]",
+              "privateIPAddress": "[parameters('privateIpAddress')]",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "PublicIPAddress"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "[parameters('publicIPAddressType')]",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "adminUsername": {
+      "type": "string",
+      "value": "[variables('adminUsername')]"
+    }
+  }
+}

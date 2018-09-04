@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "DMSAzureARM", "DMSAzureARM\DMSAzureARM.deployproj", "{8D470BB4-7FB7-4B4D-869B-0C5A6226A1B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D470BB4-7FB7-4B4D-869B-0C5A6226A1B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D470BB4-7FB7-4B4D-869B-0C5A6226A1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D470BB4-7FB7-4B4D-869B-0C5A6226A1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D470BB4-7FB7-4B4D-869B-0C5A6226A1B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {105DD5EC-9F9D-4EE1-8D0A-65305ADB87CD}
+	EndGlobalSection
+EndGlobal

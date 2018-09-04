@@ -1,0 +1,78 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "nsgName": {
+      "type": "string",
+      "defaultValue": "stagingNSG1",
+      "metadata": {
+        "description": "Name for the new NSG."
+      }
+    }
+   
+  },
+  "variables": {
+    "olamvn01Prefix": "172.16.0.0/16",
+    "olamvn01Subnet1Name": "stagingsubnet",
+    "olamvn01Subnet1Prefix": "172.16.0.0/24",
+    "olamvn01Subnet2Name": "uatsubnet",
+    "olamvn01Subnet2Prefix": "172.16.1.0/24",
+    "stagingNSGName": "stagingNSG"
+   
+  },
+  "resources": [
+    {
+      "name": "olamvn01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-03-30",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "olamvn01"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('olamvn01Prefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('olamvn01Subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('olamvn01Subnet1Prefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+              }
+              }
+            },
+          {
+            "name": "[variables('olamvn01Subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('olamvn01Subnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    }//,
+    //{
+    //  "name": "vnet_inner_nsg",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2016-09-01",
+    //  "dependsOn": [],
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "https://github.com/saroj2009/ARM-OLAMinfraTemplate_1/blob/master/OLAMarmTemplate/rg-network/nsg.json",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "https://github.com/saroj2009/ARM-OLAMinfraTemplate_1/blob/master/OLAMarmTemplate/rg-network/nsg.parameters.json",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  }
+    //}
+  ],
+  "outputs": {
+  }
+}
