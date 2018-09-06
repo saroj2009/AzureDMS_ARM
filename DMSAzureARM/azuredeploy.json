@@ -95,8 +95,8 @@
       "dependsOn": [
         "CreateNetwork"
       ]
-    },
-
+    }
+    ,
     {
       "name": "CreateFileServer",
       "type": "Microsoft.Resources/deployments",

@@ -43,10 +43,12 @@
       "type": "String"
     }
   },
-    "variables": {},
+  "variables": {
+    "dataDsk1": "ctssqldatadisk1"
+  },
     "resources": [
       {
-        "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/virtualMachines/CTSNUSDMSPFS10'.",
+        //"comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/virtualMachines/CTSNUSDMSPFS10'.",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('virtualMachines_CTSNUSDMSPFS10_name')]",
         "apiVersion": "2017-12-01",
@@ -73,14 +75,16 @@
 
               },
               "diskSizeGB": 127
-            }//,
-            //"dataDisks": [
-            //  {
-            //    "diskSizeGB": 127,
-            //    "lun": 0,
-            //    "createOption": "Empty"
-            //  }
-            //]
+            } ,
+            "dataDisks": [
+              {
+                "diskSizeGB": 127,
+                "lun": 0,
+                "name": "[concat(parameters('virtualMachines_CTSNUSDMSPFS10_name'),'DSK01')]",
+                "createOption": "Empty",
+                "caching": "ReadWrite"
+              }
+            ]
             //"dataDisks": [
             //  {
             //    "diskSizeGB": 127,
@@ -89,7 +93,7 @@
             //    "createOption": "Attach",
             //    "caching": "ReadWrite",
             //    "managedDisk": {
-            //      "id": "[resourceId('Microsoft.Compute/disks',parameters('virtualMachines_CTSNUSDMSPFS10_name'))]"
+            //      "id": "[resourceId('Microsoft.Compute/disks',variables('dataDsk1'))]"
             //    }
             //  }
             //]

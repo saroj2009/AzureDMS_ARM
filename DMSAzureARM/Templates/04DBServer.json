@@ -71,17 +71,17 @@
                         "diskSizeGB": 127
                     },
                     "dataDisks": [
-                        {
-                            "lun": 0,
-                            "name": "[concat(parameters('virtualMachines_CTSNUSDMSPDB10_name'),'_disk2_c8ef39574198459490286401b84c317a')]",
-                            "createOption": "Empty",
-                            "caching": "ReadOnly",
-                            "managedDisk": {
-                                "storageAccountType": "Premium_LRS"//,
-                                //"id": "[parameters('virtualMachines_CTSNUSDMSPDB10_id_1')]"
-                            },
-                            "diskSizeGB": 1023
-                        }
+                      {
+                        "lun": 0,
+                        "name": "[concat(parameters('virtualMachines_CTSNUSDMSPDB10_name'),'_disk2_c8ef39574198459490286401b84c317a')]",
+                        "createOption": "Empty",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                          "storageAccountType": "Premium_LRS" //,
+                          //"id": "[parameters('virtualMachines_CTSNUSDMSPDB10_id_1')]"
+                        },
+                        "diskSizeGB": 1023
+                      }
                     ]
                 },
               "osProfile": {
