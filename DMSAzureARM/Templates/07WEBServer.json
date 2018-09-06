@@ -101,32 +101,32 @@
                 //"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_tctsanusdmsprdstg01diag_name'))]"
             ]
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourcegroups/skptestrg/providers/microsoft.devtestlab/schedules/shutdown-computevm-ctsnusdmspweb10'.",
-            "type": "microsoft.devtestlab/schedules",
-            "name": "[parameters('schedules_shutdown_computevm_ctsnusdmspweb10_name')]",
-            "apiVersion": "2016-05-15",
-            "location": "southcentralus",
-            "scale": null,
-            "properties": {
-                "status": "Enabled",
-                "taskType": "ComputeVmShutdownTask",
-                "dailyRecurrence": {
-                    "time": "1900"
-                },
-                "timeZoneId": "UTC",
-                "notificationSettings": {
-                    "status": "Disabled",
-                    "timeInMinutes": 30
-                },
-                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]",
-                "provisioningState": "Succeeded",
-                "uniqueIdentifier": "2e8b517d-02cb-467e-ae8a-c78aba198639"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]"
-            ]
-        },
+        //{
+        //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourcegroups/skptestrg/providers/microsoft.devtestlab/schedules/shutdown-computevm-ctsnusdmspweb10'.",
+        //    "type": "microsoft.devtestlab/schedules",
+        //    "name": "[parameters('schedules_shutdown_computevm_ctsnusdmspweb10_name')]",
+        //    "apiVersion": "2016-05-15",
+        //    "location": "southcentralus",
+        //    "scale": null,
+        //    "properties": {
+        //        "status": "Enabled",
+        //        "taskType": "ComputeVmShutdownTask",
+        //        "dailyRecurrence": {
+        //            "time": "1900"
+        //        },
+        //        "timeZoneId": "UTC",
+        //        "notificationSettings": {
+        //            "status": "Disabled",
+        //            "timeInMinutes": 30
+        //        },
+        //        "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]",
+        //        "provisioningState": "Succeeded",
+        //        "uniqueIdentifier": "2e8b517d-02cb-467e-ae8a-c78aba198639"
+        //    },
+        //    "dependsOn": [
+        //        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]"
+        //    ]
+        //},
         {
             "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/networkInterfaces/ctsnusdmspweb10779'.",
             "type": "Microsoft.Network/networkInterfaces",

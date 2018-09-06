@@ -26,8 +26,8 @@
       "defaultValue": "tctsanusdmsprdstg01diag",
       "type": "String"
     },
-    "networkSecurityGroups_CTSNUSDMSPFS10_nsg_name": { 
-      "defaultValue": "CTSNUSDMSPFS10-nsg",
+    "networkSecurityGroups_CTSNUSDMSPFS10_nsg_name": {
+      "defaultValue": "CTSNUSDMSPFS01-nsg",
       "type": "String"
     },
     "schedules_shutdown_computevm_ctsnusdmspfs10_name": {
@@ -119,8 +119,8 @@
           }
         },
         "dependsOn": [
-          "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ctsnusdmspfs10779_name'))]",
-          "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_tctsanusdmsprdstg01diag_name'))]"
+          "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ctsnusdmspfs10779_name'))]"//,
+          //"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_tctsanusdmsprdstg01diag_name'))]"
         ]
       },
         //{
