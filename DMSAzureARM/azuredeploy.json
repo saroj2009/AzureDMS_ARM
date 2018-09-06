@@ -3,33 +3,26 @@
   "contentVersion": "1.0.0.0",
   "parameters": {},
   "variables": {
-    "networktemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateNetwork.json",
-    "networktemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateNetworkandSubnet.parameters.json",
-    "storagetemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateStorage.json",
-    "storagetemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/CreateVMDiagStorage.parameters.json",
-    "webservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/WEBServer.json",
-    "fileservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/FSServer.json",
-    "fileserver2templateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/FSServer2.json",
-    "dbservertemplateUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/DBServer.json",
-    "NotemplateUrlParameter": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/No.parameters.json"
+    "path": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/",
+
+    "storagetemplateUrl": "[concat(variables('path'),'01CreateStorage.json')]",
+    "storagetemplateUrlParameter": "[concat(variables('path'),'01CreateVMDiagStorage.parameters.json')]",
+
+    "nsgtemplateUrl": "[concat(variables('path'),'02CreateNSG.json')]",
+    "nsgtemplateUrlParameter": "[concat(variables('path'),'02CreateNSG.parameters.json')]",
+
+    "networktemplateUrl": "[concat(variables('path'),'03CreateNetwork.json')]",
+    "networktemplateUrlParameter": "[concat(variables('path'),'03CreateNetworkandSubnet.parameters.json')]",
+
+    "dbservertemplateUrl": "[concat(variables('path'),'04DBServer.json')]",
+    "dbservertemplateUrlParameter": "[concat(variables('path'),'04DBServer.parameters.json')]",
+    "fileservertemplateUrl": "[concat(variables('path'),'05FSServer.json')]",
+    "fileserver2templateUrl": "[concat(variables('path'),'06FSServer2.json')]",
+    "webservertemplateUrl": "[concat(variables('path'),'07WEBServer.json')]",
+
+    "NotemplateUrlParameter": "[concat(variables('path'),'No.parameters.json')]"
   },
   "resources": [
-    {
-      "name": "CreateNIC",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('networktemplateUrl')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parametersLink": {
-          "uri": "[variables('networktemplateUrlParameter')]",
-          "contentVersion": "1.0.0.0"
-        }
-      }
-    },
     {
       "name": "CreateStorage",
       "type": "Microsoft.Resources/deployments",
@@ -45,23 +38,63 @@
           "contentVersion": "1.0.0.0"
         }
       }
+    },
+    {
+      "name": "CreateNSG",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('nsgtemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('nsgtemplateUrlParameter')]",
+          "contentVersion": "1.0.0.0"
+        }
+      },
+      "dependsOn": [
+        "CreateStorage"
+      ]
+    },
+    {
+      "name": "CreateNetwork",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('networktemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('networktemplateUrlParameter')]",
+          "contentVersion": "1.0.0.0"
+        }
+      },
+      "dependsOn": [
+        "CreateNSG"
+      ]
+    }
+    ,
+    {
+      "name": "CreateWebServer",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('webservertemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[variables('NotemplateUrlParameter')]",
+          "contentVersion": "1.0.0.0"
+        }
+      },
+      "dependsOn": [ "CreateNetwork" ]
     }//,
-    //{
-    //  "name": "CreateWebServer",
-    //  "type": "Microsoft.Resources/deployments",
-    //  "apiVersion": "2015-01-01",
-    //  "properties": {
-    //    "mode": "Incremental",
-    //    "templateLink": {
-    //      "uri": "[variables('webservertemplateUrl')]",
-    //      "contentVersion": "1.0.0.0"
-    //    },
-    //    "parametersLink": {
-    //      "uri": "[variables('NotemplateUrlParameter')]",
-    //      "contentVersion": "1.0.0.0"
-    //    }
-    //  }
-    //},
     //{
     //  "name": "CreateFileServer",
     //  "type": "Microsoft.Resources/deployments",

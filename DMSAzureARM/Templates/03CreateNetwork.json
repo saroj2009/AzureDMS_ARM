@@ -13,6 +13,9 @@
     },
     "subnetAddressPrefixes": {
       "type": "array"
+    },
+    "nsgNames": {
+      "type": "array"
     }
   },
   "variables": {
@@ -35,7 +38,10 @@
             "input": {
               "name": "[parameters('subnetNames')[copyIndex('subnets')]]",
               "properties": {
-                "addressPrefix": "[parameters('subnetAddressPrefixes')[copyIndex('subnets')]]"
+                "addressPrefix": "[parameters('subnetAddressPrefixes')[copyIndex('subnets')]]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNames')[copyIndex('subnets')])]"
+                }
               }
             }
           }

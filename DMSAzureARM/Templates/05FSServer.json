@@ -6,27 +6,27 @@
       "defaultValue": "CTSANUSDMSVN01",
       "type": "String"
     },
-    "virtualMachines_CTSNUSDMSPFS10_name": { //virtualMachines_CTSNUSDMSPWEB10_name
+    "virtualMachines_CTSNUSDMSPFS10_name": { 
       "defaultValue": "CTSNUSDMSPFS10",
       "type": "String"
     },
-    "networkInterfaces_ctsnusdmspfs10779_name": { //networkInterfaces_ctsnusdmspweb10779_name
+    "networkInterfaces_ctsnusdmspfs10779_name": { 
       "defaultValue": "ctsnusdmspfs10779",
       "type": "String"
     },
-    "publicIPAddresses_CTSNUSDMSPFS10_ip_name": { //publicIPAddresses_CTSNUSDMSPWEB10_ip_name
+    "publicIPAddresses_CTSNUSDMSPFS10_ip_name": { 
       "defaultValue": "CTSNUSDMSPFS10-ip",
       "type": "String"
     },
     "storageAccounts_testctsanusdmsprdstg01_name": {
-      "defaultValue": "testctsanusdmsprdstg01",
+      "defaultValue": "tctsanusdmsprdstg01diag",
       "type": "String"
     },
     "storageAccounts_tctsanusdmsprdstg01diag_name": {
       "defaultValue": "tctsanusdmsprdstg01diag",
       "type": "String"
     },
-    "networkSecurityGroups_CTSNUSDMSPFS10_nsg_name": { //networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name
+    "networkSecurityGroups_CTSNUSDMSPFS10_nsg_name": { 
       "defaultValue": "CTSNUSDMSPFS10-nsg",
       "type": "String"
     },
@@ -192,8 +192,8 @@
                 "primary": true
             },
           "dependsOn": [
-            "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CTSNUSDMSPFS10_ip_name'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CTSANUSDMSVN01_name'))]"//,
+            "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CTSNUSDMSPFS10_ip_name'))]"//,
+            //"[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CTSANUSDMSVN01_name'))]"//,
             //"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CTSNUSDMSPFS10_nsg_name'))]"
           ]
         },
@@ -374,135 +374,135 @@
           "ipTags": []
         },
         "dependsOn": []
-      },
-        {
-            "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/virtualNetworks/CTSANUSDMSVN01'.",
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('virtualNetworks_CTSANUSDMSVN01_name')]",
-            "apiVersion": "2018-02-01",
-            "location": "southcentralus",
-            "scale": null,
-            "properties": {
-                "provisioningState": "Succeeded",
-                "resourceGuid": "5ceb08a3-8e36-4a59-96a4-29924e53c014",
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.1.0.0/16"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "CTSANUSDMSPRDWEBSN",
-                        "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
-                        "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.1.0.0/24"
-                        }
-                    },
-                    {
-                        "name": "CTSANUSDMSPRDDBSN",
-                        "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
-                        "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.1.1.0/24"
-                        }
-                    },
-                    {
-                        "name": "CTSANUSDMSPRDFSSN",
-                        "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
-                        "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.1.2.0/24"
-                        }
-                    },
-                    {
-                        "name": "CTSANUSDMSPRDMGMTSN",
-                        "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
-                        "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.1.3.0/24"
-                        }
-                    }
-                ],
-                "virtualNetworkPeerings": [],
-                "enableDdosProtection": false,
-                "enableVmProtection": false
-            },
-            "dependsOn": []
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/tctsanusdmsprdstg01diag'.",
-            "type": "Microsoft.Storage/storageAccounts",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "kind": "Storage",
-            "name": "[parameters('storageAccounts_tctsanusdmsprdstg01diag_name')]",
-            "apiVersion": "2018-03-01-preview",
-            "location": "southcentralus",
-            "tags": {
-                "displayName": "StorageAccount"
-            },
-            "scale": null,
-            "properties": {
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Allow"
-                },
-                "supportsHttpsTrafficOnly": false,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "enabled": true
-                        },
-                        "blob": {
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                }
-            },
-            "dependsOn": []
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/testctsanusdmsprdstg01'.",
-            "type": "Microsoft.Storage/storageAccounts",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "kind": "Storage",
-            "name": "[parameters('storageAccounts_testctsanusdmsprdstg01_name')]",
-            "apiVersion": "2018-03-01-preview",
-            "location": "southcentralus",
-            "tags": {
-                "displayName": "StorageAccount"
-            },
-            "scale": null,
-          "properties": {
-            "networkAcls": {
-              "bypass": "AzureServices",
-              "virtualNetworkRules": [],
-              "ipRules": [],
-              "defaultAction": "Allow"
-            },
-            "supportsHttpsTrafficOnly": false,
-            "encryption": {
-              "services": {
-                "file": {
-                  "enabled": true
-                },
-                "blob": {
-                  "enabled": true
-                }
-              },
-              "keySource": "Microsoft.Storage"
-            }
-          },
-            "dependsOn": []
-        }
+      }//,
+        //{
+        //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/virtualNetworks/CTSANUSDMSVN01'.",
+        //    "type": "Microsoft.Network/virtualNetworks",
+        //    "name": "[parameters('virtualNetworks_CTSANUSDMSVN01_name')]",
+        //    "apiVersion": "2018-02-01",
+        //    "location": "southcentralus",
+        //    "scale": null,
+        //    "properties": {
+        //        "provisioningState": "Succeeded",
+        //        "resourceGuid": "5ceb08a3-8e36-4a59-96a4-29924e53c014",
+        //        "addressSpace": {
+        //            "addressPrefixes": [
+        //                "10.1.0.0/16"
+        //            ]
+        //        },
+        //        "subnets": [
+        //            {
+        //                "name": "CTSANUSDMSPRDWEBSN",
+        //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+        //                "properties": {
+        //                    "provisioningState": "Succeeded",
+        //                    "addressPrefix": "10.1.0.0/24"
+        //                }
+        //            },
+        //            {
+        //                "name": "CTSANUSDMSPRDDBSN",
+        //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+        //                "properties": {
+        //                    "provisioningState": "Succeeded",
+        //                    "addressPrefix": "10.1.1.0/24"
+        //                }
+        //            },
+        //            {
+        //                "name": "CTSANUSDMSPRDFSSN",
+        //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+        //                "properties": {
+        //                    "provisioningState": "Succeeded",
+        //                    "addressPrefix": "10.1.2.0/24"
+        //                }
+        //            },
+        //            {
+        //                "name": "CTSANUSDMSPRDMGMTSN",
+        //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+        //                "properties": {
+        //                    "provisioningState": "Succeeded",
+        //                    "addressPrefix": "10.1.3.0/24"
+        //                }
+        //            }
+        //        ],
+        //        "virtualNetworkPeerings": [],
+        //        "enableDdosProtection": false,
+        //        "enableVmProtection": false
+        //    },
+        //    "dependsOn": []
+        //},
+        //{
+        //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/tctsanusdmsprdstg01diag'.",
+        //    "type": "Microsoft.Storage/storageAccounts",
+        //    "sku": {
+        //        "name": "Standard_LRS",
+        //        "tier": "Standard"
+        //    },
+        //    "kind": "Storage",
+        //    "name": "[parameters('storageAccounts_tctsanusdmsprdstg01diag_name')]",
+        //    "apiVersion": "2018-03-01-preview",
+        //    "location": "southcentralus",
+        //    "tags": {
+        //        "displayName": "StorageAccount"
+        //    },
+        //    "scale": null,
+        //    "properties": {
+        //        "networkAcls": {
+        //            "bypass": "AzureServices",
+        //            "virtualNetworkRules": [],
+        //            "ipRules": [],
+        //            "defaultAction": "Allow"
+        //        },
+        //        "supportsHttpsTrafficOnly": false,
+        //        "encryption": {
+        //            "services": {
+        //                "file": {
+        //                    "enabled": true
+        //                },
+        //                "blob": {
+        //                    "enabled": true
+        //                }
+        //            },
+        //            "keySource": "Microsoft.Storage"
+        //        }
+        //    },
+        //    "dependsOn": []
+        //},
+        //{
+        //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/testctsanusdmsprdstg01'.",
+        //    "type": "Microsoft.Storage/storageAccounts",
+        //    "sku": {
+        //        "name": "Standard_LRS",
+        //        "tier": "Standard"
+        //    },
+        //    "kind": "Storage",
+        //    "name": "[parameters('storageAccounts_testctsanusdmsprdstg01_name')]",
+        //    "apiVersion": "2018-03-01-preview",
+        //    "location": "southcentralus",
+        //    "tags": {
+        //        "displayName": "StorageAccount"
+        //    },
+        //    "scale": null,
+        //  "properties": {
+        //    "networkAcls": {
+        //      "bypass": "AzureServices",
+        //      "virtualNetworkRules": [],
+        //      "ipRules": [],
+        //      "defaultAction": "Allow"
+        //    },
+        //    "supportsHttpsTrafficOnly": false,
+        //    "encryption": {
+        //      "services": {
+        //        "file": {
+        //          "enabled": true
+        //        },
+        //        "blob": {
+        //          "enabled": true
+        //        }
+        //      },
+        //      "keySource": "Microsoft.Storage"
+        //    }
+        //  },
+        //    "dependsOn": []
+        //}
     ]
 }

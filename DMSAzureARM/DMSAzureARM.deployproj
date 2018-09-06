@@ -31,30 +31,24 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <Content Include="Parameters\03CreateVMDiagStorage.parameters.json" />
-    <Content Include="Parameters\01CreateNetworkandSubnet.parameters.json" />
+    <Content Include="Parameters\01CreateVMDiagStorage.parameters.json" />
+    <Content Include="Parameters\03CreateNetworkandSubnet.parameters.json" />
     <Content Include="Others\Parameters\CreateVM.parameters.json" />
     <Content Include="Others\Parameters\CreateVMStorage.parameters.json" />
-    <Content Include="Templates\01CreateNetwork.json" />
-    <Content Include="Templates\03CreateStorage.json" />
+    <Content Include="Templates\03CreateNetwork.json" />
+    <Content Include="Templates\01CreateStorage.json" />
     <Content Include="Others\Templates\CreateVM-PIP.json" />
     <None Include="Others\Parameters\PortalVMScript.parameters.json" />
     <Content Include="Parameters\No.parameters.json" />
     <None Include="Others\Templates\PortalVMScript.json" />
-    <Content Include="Templates\FSServer2.json" />
-    <Content Include="Templates\FSServer.json" />
-    <Content Include="Templates\WEBServer.json" />
-    <Content Include="Parameters\02.0CreateNSG.parameters.json" />
-    <Content Include="Parameters\02.1network.parameters.json" />
-    <None Include="Parameters\DBServer.parameters.json" />
+    <Content Include="Templates\06FSServer2.json" />
+    <Content Include="Templates\05FSServer.json" />
+    <Content Include="Templates\07WEBServer.json" />
+    <Content Include="Parameters\02CreateNSG.parameters.json" />
+    <None Include="Parameters\04DBServer.parameters.json" />
     <None Include="Temp.json" />
-    <Content Include="Templates\DBServer.json" />
-    <Content Include="Templates\02.0CreateNSG.json" />
-    <Content Include="Templates\02.1network.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generic\Parameters\" />
-    <Folder Include="Generic\Templates\" />
+    <Content Include="Templates\04DBServer.json" />
+    <Content Include="Templates\02CreateNSG.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>

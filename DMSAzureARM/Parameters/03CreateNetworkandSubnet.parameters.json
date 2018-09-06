@@ -13,6 +13,9 @@
     },
     "subnetAddressPrefixes": {
       "value": [ "10.1.0.0/24", "10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24" ]
+    },
+    "nsgNames": {
+      "value": [ "CTSNUSDMSPWEB01-nsg", "CTSNUSDMSPDB01-nsg", "CTSNUSDMSPFS01-nsg", "CTSNUSDMSPFS02-nsg" ]
     }
   }
 }
