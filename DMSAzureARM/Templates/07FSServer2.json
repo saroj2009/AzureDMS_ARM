@@ -6,15 +6,15 @@
       "defaultValue": "CTSANUSDMSVN01",
       "type": "String"
     },
-    "virtualMachines_CTSNUSDMSPFS20_name": { 
+    "virtualMachines_CTSNUSDMSPFS20_name": {
       "defaultValue": "CTSNUSDMSPFS20",
       "type": "String"
     },
-    "networkInterfaces_ctsnusdmspfs20779_name": { 
+    "networkInterfaces_ctsnusdmspfs20779_name": {
       "defaultValue": "ctsnusdmspfs20779",
       "type": "String"
     },
-    "publicIPAddresses_CTSNUSDMSPFS20_ip_name": { 
+    "publicIPAddresses_CTSNUSDMSPFS20_ip_name": {
       "defaultValue": "CTSNUSDMSPFS20-ip",
       "type": "String"
     },
@@ -41,6 +41,9 @@
     "virtualMachines_CTSNUSDMSPFS20_id_1": {
       "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPFS20DSK01",
       "type": "String"
+    },
+    "adminPassword": {
+      "type": "securestring"
     }
   },
     "variables": {},
@@ -98,7 +101,7 @@
           "osProfile": {
             "computerName": "[parameters('virtualMachines_CTSNUSDMSPFS20_name')]",
             "adminUsername": "[parameters('virtualMachines_CTSNUSDMSPFS20_name')]",
-            "adminPassword": "Saroj@12345678",
+            "adminPassword": "[parameters('adminPassword')]",
             "windowsConfiguration": {
               "provisionVMAgent": true,
               "enableAutomaticUpdates": true

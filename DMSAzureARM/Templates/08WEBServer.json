@@ -1,0 +1,518 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualNetworks_CTSANUSDMSVN01_name": {
+      "defaultValue": "CTSANUSDMSVN01",
+      "type": "String"
+    },
+    "virtualMachines_CTSNUSDMSPWEB10_name": {
+      "defaultValue": "CTSNUSDMSPWEB10",
+      "type": "String"
+    },
+    "networkInterfaces_ctsnusdmspweb10779_name": {
+      "defaultValue": "ctsnusdmspweb10779",
+      "type": "String"
+    },
+    "publicIPAddresses_CTSNUSDMSPWEB10_ip_name": {
+      "defaultValue": "CTSNUSDMSPWEB10-ip",
+      "type": "String"
+    },
+    "storageAccounts_testctsanusdmsprdstg01_name": {
+      "defaultValue": "tctsanusdmsprdstg01diag",
+      "type": "String"
+    },
+    "storageAccounts_tctsanusdmsprdstg01diag_name": {
+      "defaultValue": "tctsanusdmsprdstg01diag",
+      "type": "String"
+    },
+    "networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name": {
+      "defaultValue": "CTSNUSDMSPWEB01-nsg",
+      "type": "String"
+    },
+    "schedules_shutdown_computevm_ctsnusdmspweb10_name": {
+      "defaultValue": "shutdown-computevm-ctsnusdmspweb10",
+      "type": "String"
+    },
+    "virtualMachines_CTSNUSDMSPWEB10_id": {
+      "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPWEB10_OsDisk_1_1465648cf5a34e05af6031a617f37949",
+      "type": "String"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    }
+  },
+  "variables": {
+    //"vmExtensionName": "dscExtension",
+    "vmExtensionName": "DSCIISExtension",
+    "modulesUrl": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/Install-IIS.zip",
+    "configurationFunction": "Install-IIS.ps1\\InstallWebsite"
+  },
+  "resources": [
+    {
+      "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/virtualMachines/CTSNUSDMSPWEB10'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_CTSNUSDMSPWEB10_name')]",
+      "apiVersion": "2017-12-01",
+      "location": "southcentralus",
+      "scale": null,
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_D2s_v3"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "osType": "Windows",
+            "name": "[concat(parameters('virtualMachines_CTSNUSDMSPWEB10_name'),'_OsDisk_1_1465648cf5a34e05af6031a617f37949')]",
+            "createOption": "FromImage",
+            "caching": "ReadWrite",
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
+
+            },
+            "diskSizeGB": 127
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_CTSNUSDMSPWEB10_name')]",
+          "adminUsername": "[parameters('virtualMachines_CTSNUSDMSPWEB10_name')]",
+          "adminPassword": "[parameters('adminPassword')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": []
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ctsnusdmspweb10779_name'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('https', '://', parameters('storageAccounts_tctsanusdmsprdstg01diag_name'), '.blob.core.windows.net', '/')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ctsnusdmspweb10779_name'))]" //,
+        //"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_tctsanusdmsprdstg01diag_name'))]"
+      ]
+    },
+    //{
+    //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourcegroups/skptestrg/providers/microsoft.devtestlab/schedules/shutdown-computevm-ctsnusdmspweb10'.",
+    //    "type": "microsoft.devtestlab/schedules",
+    //    "name": "[parameters('schedules_shutdown_computevm_ctsnusdmspweb10_name')]",
+    //    "apiVersion": "2016-05-15",
+    //    "location": "southcentralus",
+    //    "scale": null,
+    //    "properties": {
+    //        "status": "Enabled",
+    //        "taskType": "ComputeVmShutdownTask",
+    //        "dailyRecurrence": {
+    //            "time": "1900"
+    //        },
+    //        "timeZoneId": "UTC",
+    //        "notificationSettings": {
+    //            "status": "Disabled",
+    //            "timeInMinutes": 30
+    //        },
+    //        "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]",
+    //        "provisioningState": "Succeeded",
+    //        "uniqueIdentifier": "2e8b517d-02cb-467e-ae8a-c78aba198639"
+    //    },
+    //    "dependsOn": [
+    //        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]"
+    //    ]
+    //},
+    {
+      "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/networkInterfaces/ctsnusdmspweb10779'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_ctsnusdmspweb10779_name')]",
+      "apiVersion": "2018-02-01",
+      "location": "southcentralus",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "resourceGuid": "11a3c42b-0a52-4af4-9aca-24c3dfab6b3d",
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "etag": "W/\"4da036c3-5aac-4b80-ab1c-084ee0a0b575\"",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "privateIPAddress": "10.1.0.4",
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CTSNUSDMSPWEB10_ip_name'))]"
+              },
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CTSANUSDMSVN01_name')), '/subnets/CTSANUSDMSPRDWEBSN')]"
+              },
+              "primary": true,
+              "privateIPAddressVersion": "IPv4"
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": [],
+          "appliedDnsServers": [],
+          "internalDomainNameSuffix": "umeowxbwrzmuvfvefgje2u4ace.jx.internal.cloudapp.net"
+        },
+        "macAddress": "00-0D-3A-5D-EF-14",
+        "enableAcceleratedNetworking": false,
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name'))]"
+        },
+        "primary": true
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CTSNUSDMSPWEB10_ip_name'))]" //,
+        //"[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CTSANUSDMSVN01_name'))]",
+        //"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name'))]"
+      ]
+    },
+    //{
+    //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/networkSecurityGroups/CTSNUSDMSPWEB10-nsg'.",
+    //    "type": "Microsoft.Network/networkSecurityGroups",
+    //    "name": "[parameters('networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name')]",
+    //    "apiVersion": "2018-02-01",
+    //    "location": "southcentralus",
+    //    "scale": null,
+    //    "properties": {
+    //        "provisioningState": "Succeeded",
+    //        "resourceGuid": "d083840d-401a-4ad1-a344-8113d3894dab",
+    //        "securityRules": [
+    //            {
+    //                "name": "RDP",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "protocol": "TCP",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "3389",
+    //                    "sourceAddressPrefix": "*",
+    //                    "destinationAddressPrefix": "*",
+    //                    "access": "Allow",
+    //                    "priority": 300,
+    //                    "direction": "Inbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            }
+    //        ],
+    //        "defaultSecurityRules": [
+    //            {
+    //                "name": "AllowVnetInBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Allow inbound traffic from all VMs in VNET",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "VirtualNetwork",
+    //                    "destinationAddressPrefix": "VirtualNetwork",
+    //                    "access": "Allow",
+    //                    "priority": 65000,
+    //                    "direction": "Inbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            },
+    //            {
+    //                "name": "AllowAzureLoadBalancerInBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Allow inbound traffic from azure load balancer",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "AzureLoadBalancer",
+    //                    "destinationAddressPrefix": "*",
+    //                    "access": "Allow",
+    //                    "priority": 65001,
+    //                    "direction": "Inbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            },
+    //            {
+    //                "name": "DenyAllInBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Deny all inbound traffic",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "*",
+    //                    "destinationAddressPrefix": "*",
+    //                    "access": "Deny",
+    //                    "priority": 65500,
+    //                    "direction": "Inbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            },
+    //            {
+    //                "name": "AllowVnetOutBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "VirtualNetwork",
+    //                    "destinationAddressPrefix": "VirtualNetwork",
+    //                    "access": "Allow",
+    //                    "priority": 65000,
+    //                    "direction": "Outbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            },
+    //            {
+    //                "name": "AllowInternetOutBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Allow outbound traffic from all VMs to Internet",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "*",
+    //                    "destinationAddressPrefix": "Internet",
+    //                    "access": "Allow",
+    //                    "priority": 65001,
+    //                    "direction": "Outbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            },
+    //            {
+    //                "name": "DenyAllOutBound",
+    //                "etag": "W/\"1cf0b545-f958-4930-8e79-b92cdfbb478a\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "description": "Deny all outbound traffic",
+    //                    "protocol": "*",
+    //                    "sourcePortRange": "*",
+    //                    "destinationPortRange": "*",
+    //                    "sourceAddressPrefix": "*",
+    //                    "destinationAddressPrefix": "*",
+    //                    "access": "Deny",
+    //                    "priority": 65500,
+    //                    "direction": "Outbound",
+    //                    "sourcePortRanges": [],
+    //                    "destinationPortRanges": [],
+    //                    "sourceAddressPrefixes": [],
+    //                    "destinationAddressPrefixes": []
+    //                }
+    //            }
+    //        ]
+    //    },
+    //    "dependsOn": []
+    //},
+    {
+      "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/publicIPAddresses/CTSNUSDMSPWEB10-ip'.",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "sku": {
+        "name": "Basic",
+        "tier": "Regional"
+      },
+      "name": "[parameters('publicIPAddresses_CTSNUSDMSPWEB10_ip_name')]",
+      "apiVersion": "2018-02-01",
+      "location": "southcentralus",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "resourceGuid": "2db89b9f-75f2-4d8b-acb8-ed638f664da9",
+        "ipAddress": "104.215.121.174",
+        "publicIPAddressVersion": "IPv4",
+        "publicIPAllocationMethod": "Dynamic",
+        "idleTimeoutInMinutes": 4,
+        "ipTags": []
+      },
+      "dependsOn": []
+    } //,
+    //{
+    //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Network/virtualNetworks/CTSANUSDMSVN01'.",
+    //    "type": "Microsoft.Network/virtualNetworks",
+    //    "name": "[parameters('virtualNetworks_CTSANUSDMSVN01_name')]",
+    //    "apiVersion": "2018-02-01",
+    //    "location": "southcentralus",
+    //    "scale": null,
+    //    "properties": {
+    //        "provisioningState": "Succeeded",
+    //        "resourceGuid": "5ceb08a3-8e36-4a59-96a4-29924e53c014",
+    //        "addressSpace": {
+    //            "addressPrefixes": [
+    //                "10.1.0.0/16"
+    //            ]
+    //        },
+    //        "subnets": [
+    //            {
+    //                "name": "CTSANUSDMSPRDWEBSN",
+    //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "addressPrefix": "10.1.0.0/24"
+    //                }
+    //            },
+    //            {
+    //                "name": "CTSANUSDMSPRDDBSN",
+    //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "addressPrefix": "10.1.1.0/24"
+    //                }
+    //            },
+    //            {
+    //                "name": "CTSANUSDMSPRDFSSN",
+    //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "addressPrefix": "10.1.2.0/24"
+    //                }
+    //            },
+    //            {
+    //                "name": "CTSANUSDMSPRDMGMTSN",
+    //                "etag": "W/\"94ca79d3-8494-44e4-b8d8-dbad171ba427\"",
+    //                "properties": {
+    //                    "provisioningState": "Succeeded",
+    //                    "addressPrefix": "10.1.3.0/24"
+    //                }
+    //            }
+    //        ],
+    //        "virtualNetworkPeerings": [],
+    //        "enableDdosProtection": false,
+    //        "enableVmProtection": false
+    //    },
+    //    "dependsOn": []
+    //},
+    //{
+    //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/tctsanusdmsprdstg01diag'.",
+    //    "type": "Microsoft.Storage/storageAccounts",
+    //    "sku": {
+    //        "name": "Standard_LRS",
+    //        "tier": "Standard"
+    //    },
+    //    "kind": "Storage",
+    //    "name": "[parameters('storageAccounts_tctsanusdmsprdstg01diag_name')]",
+    //    "apiVersion": "2018-03-01-preview",
+    //    "location": "southcentralus",
+    //    "tags": {
+    //        "displayName": "StorageAccount"
+    //    },
+    //    "scale": null,
+    //    "properties": {
+    //        "networkAcls": {
+    //            "bypass": "AzureServices",
+    //            "virtualNetworkRules": [],
+    //            "ipRules": [],
+    //            "defaultAction": "Allow"
+    //        },
+    //        "supportsHttpsTrafficOnly": false,
+    //        "encryption": {
+    //            "services": {
+    //                "file": {
+    //                    "enabled": true
+    //                },
+    //                "blob": {
+    //                    "enabled": true
+    //                }
+    //            },
+    //            "keySource": "Microsoft.Storage"
+    //        }
+    //    },
+    //    "dependsOn": []
+    //},
+    //{
+    //    "comments": "Generalized from resource: '/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Storage/storageAccounts/testctsanusdmsprdstg01'.",
+    //    "type": "Microsoft.Storage/storageAccounts",
+    //    "sku": {
+    //        "name": "Standard_LRS",
+    //        "tier": "Standard"
+    //    },
+    //    "kind": "Storage",
+    //    "name": "[parameters('storageAccounts_testctsanusdmsprdstg01_name')]",
+    //    "apiVersion": "2018-03-01-preview",
+    //    "location": "southcentralus",
+    //    "tags": {
+    //        "displayName": "StorageAccount"
+    //    },
+    //    "scale": null,
+    //  "properties": {
+    //    "networkAcls": {
+    //      "bypass": "AzureServices",
+    //      "virtualNetworkRules": [],
+    //      "ipRules": [],
+    //      "defaultAction": "Allow"
+    //    },
+    //    "supportsHttpsTrafficOnly": false,
+    //    "encryption": {
+    //      "services": {
+    //        "file": {
+    //          "enabled": true
+    //        },
+    //        "blob": {
+    //          "enabled": true
+    //        }
+    //      },
+    //      "keySource": "Microsoft.Storage"
+    //    }
+    //  },
+    //    "dependsOn": []
+    //}
+    ,
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('virtualMachines_CTSNUSDMSPWEB10_name'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "southcentralus",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachines_CTSNUSDMSPWEB10_name'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "ModulesUrl": "[variables('modulesUrl')]",
+          "ConfigurationFunction": "[variables('configurationFunction')]",
+          "Properties": {
+            "MachineName": "[parameters('virtualMachines_CTSNUSDMSPWEB10_name')]"
+          }
+        },
+        "protectedSettings": null
+      }
+    }
+  ]
+}

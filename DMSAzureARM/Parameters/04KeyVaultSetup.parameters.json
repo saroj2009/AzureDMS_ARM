@@ -1,0 +1,21 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "keyVaultName": {
+      "value": "DMSVMpwdKeyVault"
+    },
+    "tenantId": {
+      "value": "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
+    },
+    "objectId": {
+      "value": "c6a8f766-ba31-42a6-9e15-9330da2eb083"
+    },
+    "secretName": {
+      "value": "DMSvmSecret"
+    },
+    "enabledForTemplateDeployment": {
+      "value": true
+    }
+  }
+}

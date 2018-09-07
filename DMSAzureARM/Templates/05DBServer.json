@@ -1,44 +1,47 @@
 ﻿{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "virtualMachines_CTSNUSDMSPDB10_name": {
-            "defaultValue": "CTSNUSDMSPDB10",
-            "type": "String"
-        },
-        "virtualNetworks_CTSANUSDMSVN01_name": {
-            "defaultValue": "CTSANUSDMSVN01",
-            "type": "String"
-        },
-        "networkInterfaces_ctsnusdmspdb10548_name": {
-            "defaultValue": "ctsnusdmspdb10548",
-            "type": "String"
-        },
-        "publicIPAddresses_CTSNUSDMSPDB10_ip_name": {
-            "defaultValue": "CTSNUSDMSPDB10-ip",
-            "type": "String"
-        },
-      "storageAccounts_tctsanusdmsprdstg01diag_name": {
-        "defaultValue": "tctsanusdmsprdstg01diag",
-        "type": "String"
-      },
-      "networkSecurityGroups_CTSNUSDMSPDB10_nsg_name": {
-        "defaultValue": "CTSNUSDMSPDB01-nsg",
-        "type": "String"
-      },
-        "schedules_shutdown_computevm_ctsnusdmspdb10_name": {
-            "defaultValue": "shutdown-computevm-ctsnusdmspdb10",
-            "type": "String"
-        },
-        "virtualMachines_CTSNUSDMSPDB10_id": {
-            "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_OsDisk_1_18ed2879b2764c5a887421d0ea228984",
-            "type": "String"
-        },
-        "virtualMachines_CTSNUSDMSPDB10_id_1": {
-            "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_disk2_c8ef39574198459490286401b84c317a",
-            "type": "String"
-        }
+  "parameters": {
+    "virtualMachines_CTSNUSDMSPDB10_name": {
+      "defaultValue": "CTSNUSDMSPDB10",
+      "type": "String"
     },
+    "virtualNetworks_CTSANUSDMSVN01_name": {
+      "defaultValue": "CTSANUSDMSVN01",
+      "type": "String"
+    },
+    "networkInterfaces_ctsnusdmspdb10548_name": {
+      "defaultValue": "ctsnusdmspdb10548",
+      "type": "String"
+    },
+    "publicIPAddresses_CTSNUSDMSPDB10_ip_name": {
+      "defaultValue": "CTSNUSDMSPDB10-ip",
+      "type": "String"
+    },
+    "storageAccounts_tctsanusdmsprdstg01diag_name": {
+      "defaultValue": "tctsanusdmsprdstg01diag",
+      "type": "String"
+    },
+    "networkSecurityGroups_CTSNUSDMSPDB10_nsg_name": {
+      "defaultValue": "CTSNUSDMSPDB01-nsg",
+      "type": "String"
+    },
+    "schedules_shutdown_computevm_ctsnusdmspdb10_name": {
+      "defaultValue": "shutdown-computevm-ctsnusdmspdb10",
+      "type": "String"
+    },
+    "virtualMachines_CTSNUSDMSPDB10_id": {
+      "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_OsDisk_1_18ed2879b2764c5a887421d0ea228984",
+      "type": "String"
+    },
+    "virtualMachines_CTSNUSDMSPDB10_id_1": {
+      "defaultValue": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_disk2_c8ef39574198459490286401b84c317a",
+      "type": "String"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    }
+  },
     "variables": {},
     "resources": [
         {
@@ -87,7 +90,7 @@
               "osProfile": {
                 "computerName": "[parameters('virtualMachines_CTSNUSDMSPDB10_name')]",
                 "adminUsername": "[parameters('virtualMachines_CTSNUSDMSPDB10_name')]",
-                "adminPassword": "Saroj@12345678",
+                "adminPassword": "[parameters('adminPassword')]",
                 "windowsConfiguration": {
                   "provisionVMAgent": true,
                   "enableAutomaticUpdates": true

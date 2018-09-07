@@ -14,12 +14,16 @@
     "networktemplateUrl": "[concat(variables('path'),'03CreateNetwork.json')]",
     "networktemplateUrlParameter": "[concat(variables('path'),'03CreateNetworkandSubnet.parameters.json')]",
 
-    "dbservertemplateUrl": "[concat(variables('path'),'04DBServer.json')]",
-    "dbservertemplateUrlParameter": "[concat(variables('path'),'04DBServer.parameters.json')]",
-    "fileservertemplateUrl": "[concat(variables('path'),'05FSServer.json')]",
-    "fileserver2templateUrl": "[concat(variables('path'),'06FSServer2.json')]",
-    "webservertemplateUrl": "[concat(variables('path'),'07WEBServer.json')]",
+    "keyvaulttemplateUrl": "[concat(variables('path'),'04KeyVaultSetup.json')]",
+    "keyvaulttemplateUrlParameter": "[concat(variables('path'),'04KeyVaultSetup.parameters.json')]",
 
+    "dbservertemplateUrl": "[concat(variables('path'),'05DBServer.json')]",
+    "dbservertemplateUrlParameter": "[concat(variables('path'),'DBServer.parameters.json')]",
+    "fileservertemplateUrl": "[concat(variables('path'),'06FSServer.json')]",
+    "fileserver2templateUrl": "[concat(variables('path'),'07FSServer2.json')]",
+    "webservertemplateUrl": "[concat(variables('path'),'08WEBServer.json')]",
+
+    "serverstemplateUrlParameter": "[concat(variables('path'),'05Server.parameters.json')]",
     "NotemplateUrlParameter": "[concat(variables('path'),'No.parameters.json')]"
   },
   "resources": [
@@ -39,6 +43,25 @@
         }
       }
     },
+    //{
+    //  "name": "CreateKeyVault",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('keyvaulttemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('keyvaulttemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  },
+    //  "dependsOn": [
+    //    "CreateStorage"
+    //  ]
+    //},
     {
       "name": "CreateNSG",
       "type": "Microsoft.Resources/deployments",
@@ -76,7 +99,8 @@
       "dependsOn": [
         "CreateNSG"
       ]
-    },
+    }
+    ,
     {
       "name": "CreateDBServer",
       "type": "Microsoft.Resources/deployments",
@@ -88,7 +112,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[variables('NotemplateUrlParameter')]",
+          "uri": "[variables('serverstemplateUrlParameter')]",
           "contentVersion": "1.0.0.0"
         }
       },
@@ -108,7 +132,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[variables('NotemplateUrlParameter')]",
+          "uri": "[variables('serverstemplateUrlParameter')]",
           "contentVersion": "1.0.0.0"
         }
       },
@@ -127,7 +151,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[variables('NotemplateUrlParameter')]",
+          "uri": "[variables('serverstemplateUrlParameter')]",
           "contentVersion": "1.0.0.0"
         }
       },
@@ -146,7 +170,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[variables('NotemplateUrlParameter')]",
+          "uri": "[variables('serverstemplateUrlParameter')]",
           "contentVersion": "1.0.0.0"
         }
       },
