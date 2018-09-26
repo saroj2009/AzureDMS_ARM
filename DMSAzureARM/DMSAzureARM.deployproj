@@ -31,6 +31,10 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <Content Include="Parameters\05DBServer.parameters.json" />
+    <Content Include="Parameters\07FSServer2.parameters.json" />
+    <Content Include="Parameters\06FSServer.parameters.json" />
+    <Content Include="Parameters\08WEBServer.parameters.json" />
     <Content Include="Parameters\02CreateVMDiagStorage.parameters.json" />
     <Content Include="Parameters\04CreateNetworkandSubnet.parameters.json" />
     <Content Include="Templates\04CreateNetwork.json" />

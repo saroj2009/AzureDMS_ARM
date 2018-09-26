@@ -5,7 +5,7 @@
       "adminPassword": {
         "reference": {
           "keyVault": {
-            "id": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.KeyVault/vaults/DMSVMpwdKeyVault"
+            "id": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG2/providers/Microsoft.KeyVault/vaults/DMSVMpwdKeyVault"
           },
           "secretName": "DMSvmSecret"
         }

@@ -1,0 +1,43 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachines_CTSNUSDMSPDB10_name": {
+      "value": "CTSNUSDMSPDB10"
+    },
+    "virtualNetworks_CTSANUSDMSVN01_name": {
+      "value": "CTSANUSDMSVN01"
+    },
+    "networkInterfaces_ctsnusdmspdb10548_name": {
+      "value": "ctsnusdmspdb10548"
+    },
+    "publicIPAddresses_CTSNUSDMSPDB10_ip_name": {
+      "value": "CTSNUSDMSPDB10-ip"
+    },
+    "storageAccounts_tctsanusdmsprdstg01diag_name": {
+      "value": "tctsanusdmsprdstg01diag"
+    },
+    "networkSecurityGroups_CTSNUSDMSPDB10_nsg_name": {
+      "value": "CTSNUSDMSPDB01-nsg"
+    },
+    "schedules_shutdown_computevm_ctsnusdmspdb10_name": {
+      "value": "shutdown-computevm-ctsnusdmspdb10"
+    },
+    "virtualMachines_CTSNUSDMSPDB10_id": {
+      "value": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_OsDisk_1_18ed2879b2764c5a887421d0ea228984"
+    },
+    "virtualMachines_CTSNUSDMSPDB10_id_1": {
+      "value": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG/providers/Microsoft.Compute/disks/CTSNUSDMSPDB10_disk2_c8ef39574198459490286401b84c317a"
+
+    },
+    "adminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG2/providers/Microsoft.KeyVault/vaults/DMSVMpwdKeyVault"
+        },
+        "secretName": "DMSvmSecret"
+      }
+    }
+  }
+}
+

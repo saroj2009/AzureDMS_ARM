@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  
+  "parameters": {
+    "virtualNetworks_CTSANUSDMSVN01_name": {
+      "value": "CTSANUSDMSVN01"
+    },
+    "virtualMachines_CTSNUSDMSPWEB10_name": {
+      "value": "CTSNUSDMSPWEB10"
+    },
+    "networkInterfaces_ctsnusdmspweb10779_name": {
+      "value": "ctsnusdmspweb10779"
+    },
+    "publicIPAddresses_CTSNUSDMSPWEB10_ip_name": {
+      "value": "CTSNUSDMSPWEB10-ip"
+    },
+    "storageAccounts_testctsanusdmsprdstg01_name": {
+      "value": "tctsanusdmsprdstg01diag"
+    },
+    "storageAccounts_tctsanusdmsprdstg01diag_name": {
+      "value": "tctsanusdmsprdstg01diag"
+    },
+    "networkSecurityGroups_CTSNUSDMSPWEB10_nsg_name": {
+      "value": "CTSNUSDMSPWEB01-nsg"
+    },
+    "schedules_shutdown_computevm_ctsnusdmspweb10_name": {
+      "value": "shutdown-computevm-ctsnusdmspweb10"
+    },
+  "adminPassword": {
+    "reference": {
+      "keyVault": {
+        "id": "/subscriptions/16c4dd7c-eae8-42bc-ae66-6e5691642e32/resourceGroups/SKPTestRG2/providers/Microsoft.KeyVault/vaults/DMSVMpwdKeyVault"
+      },
+      "secretName": "DMSvmSecret"
+    }
+    }
+  }
+}

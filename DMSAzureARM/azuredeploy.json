@@ -5,6 +5,9 @@
   "variables": {
     "path": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/",
 
+    "keyvaulttemplateUrl": "[concat(variables('path'),'01KeyVaultSetup.json')]",
+    "keyvaulttemplateUrlParameter": "[concat(variables('path'),'01KeyVaultSetup.parameters.json')]",
+
     "storagetemplateUrl": "[concat(variables('path'),'02CreateStorage.json')]",
     "storagetemplateUrlParameter": "[concat(variables('path'),'02CreateVMDiagStorage.parameters.json')]",
 
@@ -14,14 +17,17 @@
     "networktemplateUrl": "[concat(variables('path'),'04CreateNetwork.json')]",
     "networktemplateUrlParameter": "[concat(variables('path'),'04CreateNetworkandSubnet.parameters.json')]",
 
-    "keyvaulttemplateUrl": "[concat(variables('path'),'01KeyVaultSetup.json')]",
-    "keyvaulttemplateUrlParameter": "[concat(variables('path'),'01KeyVaultSetup.parameters.json')]",
-
     "dbservertemplateUrl": "[concat(variables('path'),'05DBServer.json')]",
-    "dbservertemplateUrlParameter": "[concat(variables('path'),'DBServer.parameters.json')]",
+    "dbservertemplateUrlParameter": "[concat(variables('path'),'05DBServer.parameters.json')]",
+
     "fileservertemplateUrl": "[concat(variables('path'),'06FSServer.json')]",
+    "fileservertemplateUrlParameter": "[concat(variables('path'),'06FSServer.parameters.json')]",
+
     "fileserver2templateUrl": "[concat(variables('path'),'07FSServer2.json')]",
+    "fileserver2templateUrlParameter": "[concat(variables('path'),'07FSServer2.parameters.json')]",
+
     "webservertemplateUrl": "[concat(variables('path'),'08WEBServer.json')]",
+    "webservertemplateUrlParameter": "[concat(variables('path'),'08WEBServer.parameters.json')]",
 
     "serverstemplateUrlParameter": "[concat(variables('path'),'05Server.parameters.json')]",
     "NotemplateUrlParameter": "[concat(variables('path'),'No.parameters.json')]"
@@ -99,66 +105,65 @@
       "dependsOn": [
         "CreateNSG"
       ]
-    }
-    ,
-    {
-      "name": "CreateDBServer",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('dbservertemplateUrl')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parametersLink": {
-          "uri": "[variables('serverstemplateUrlParameter')]",
-          "contentVersion": "1.0.0.0"
-        }
-      },
-      "dependsOn": [
-        "CreateNetwork"
-      ]
-    }
-    ,
-    {
-      "name": "CreateFileServer",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('fileservertemplateUrl')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parametersLink": {
-          "uri": "[variables('serverstemplateUrlParameter')]",
-          "contentVersion": "1.0.0.0"
-        }
-      },
-      "dependsOn": [
-        "CreateNetwork"
-      ]
     },
-    {
-      "name": "CreateFileServer2",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('fileserver2templateUrl')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parametersLink": {
-          "uri": "[variables('serverstemplateUrlParameter')]",
-          "contentVersion": "1.0.0.0"
-        }
-      },
-      "dependsOn": [
-        "CreateNetwork"
-      ]
-    },
+    //{
+    //  "name": "CreateDBServer",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('dbservertemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('dbservertemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  },
+    //  "dependsOn": [
+    //    "CreateNetwork"
+    //  ]
+    //}
+    //,
+    //{
+    //  "name": "CreateFileServer",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('fileservertemplateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('fileservertemplateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  },
+    //  "dependsOn": [
+    //    "CreateNetwork"
+    //  ]
+    //},
+    //{
+    //  "name": "CreateFileServer2",
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2015-01-01",
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "templateLink": {
+    //      "uri": "[variables('fileserver2templateUrl')]",
+    //      "contentVersion": "1.0.0.0"
+    //    },
+    //    "parametersLink": {
+    //      "uri": "[variables('fileserver2templateUrlParameter')]",
+    //      "contentVersion": "1.0.0.0"
+    //    }
+    //  },
+    //  "dependsOn": [
+    //    "CreateNetwork"
+    //  ]
+    //},
     {
       "name": "CreateWebServer",
       "type": "Microsoft.Resources/deployments",
@@ -170,7 +175,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[variables('serverstemplateUrlParameter')]",
+          "uri": "[variables('webservertemplateUrlParameter')]",
           "contentVersion": "1.0.0.0"
         }
       },
