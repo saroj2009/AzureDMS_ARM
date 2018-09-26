@@ -5,17 +5,17 @@
   "variables": {
     "path": "https://sarojwebappstorage.blob.core.windows.net/dmsarmtemplate/",
 
-    "storagetemplateUrl": "[concat(variables('path'),'01CreateStorage.json')]",
-    "storagetemplateUrlParameter": "[concat(variables('path'),'01CreateVMDiagStorage.parameters.json')]",
+    "storagetemplateUrl": "[concat(variables('path'),'02CreateStorage.json')]",
+    "storagetemplateUrlParameter": "[concat(variables('path'),'02CreateVMDiagStorage.parameters.json')]",
 
-    "nsgtemplateUrl": "[concat(variables('path'),'02CreateNSG.json')]",
-    "nsgtemplateUrlParameter": "[concat(variables('path'),'02CreateNSG.parameters.json')]",
+    "nsgtemplateUrl": "[concat(variables('path'),'03CreateNSG.json')]",
+    "nsgtemplateUrlParameter": "[concat(variables('path'),'03CreateNSG.parameters.json')]",
 
-    "networktemplateUrl": "[concat(variables('path'),'03CreateNetwork.json')]",
-    "networktemplateUrlParameter": "[concat(variables('path'),'03CreateNetworkandSubnet.parameters.json')]",
+    "networktemplateUrl": "[concat(variables('path'),'04CreateNetwork.json')]",
+    "networktemplateUrlParameter": "[concat(variables('path'),'04CreateNetworkandSubnet.parameters.json')]",
 
-    "keyvaulttemplateUrl": "[concat(variables('path'),'04KeyVaultSetup.json')]",
-    "keyvaulttemplateUrlParameter": "[concat(variables('path'),'04KeyVaultSetup.parameters.json')]",
+    "keyvaulttemplateUrl": "[concat(variables('path'),'01KeyVaultSetup.json')]",
+    "keyvaulttemplateUrlParameter": "[concat(variables('path'),'01KeyVaultSetup.parameters.json')]",
 
     "dbservertemplateUrl": "[concat(variables('path'),'05DBServer.json')]",
     "dbservertemplateUrlParameter": "[concat(variables('path'),'DBServer.parameters.json')]",
