@@ -4,18 +4,21 @@
   "parameters": {
     "keyVaultName": {
       "type": "string",
+      "defaultValue": "DMSVMpwdKeyVault",
       "metadata": {
         "description": "Name of the vault"
       }
     },
     "tenantId": {
       "type": "string",
+      "defaultValue": "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3",
       "metadata": {
         "description": "Tenant Id for the subscription and use assigned access to the vault. Available from the Get-AzureRMSubscription PowerShell cmdlet"
       }
     },
     "objectId": {
       "type": "string",
+      "defaultValue": "c6a8f766-ba31-42a6-9e15-9330da2eb083",
       "metadata": {
         "description": "Object Id of the AAD user or service principal that will have access to the vault. Available from the Get-AzureRMADUser or the Get-AzureRMADServicePrincipal cmdlets"
       }
@@ -68,6 +71,7 @@
     },
     "secretName": {
       "type": "string",
+      "defaultValue": "DMSvmSecret",
       "metadata": {
         "description": "Name of the secret to store in the vault"
       }
